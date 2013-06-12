@@ -9,7 +9,6 @@ module.exports = class Bot extends irc.Client
     @lstcache = []
     @config = require "./servers/#{file}"
     _.extend(@config, require "./config")
-    console.log @config
     if @config.enabled == false
       this.emit 'loaded'
       console.log "- Server #{@config.server} is disabled, skipping"
