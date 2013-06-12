@@ -1,0 +1,25 @@
+{
+  "name": "Kit",
+  "description": "Some shitty IRC bot",
+  "version": "0.2.0",
+  "author": {
+    "name": "Ishmayeck",
+    "email": "ishmayeck@ishmayeck.com",
+    "url": "http://ishmayeck.com/"
+  },
+  "main": "./app.js",
+  "dependencies": {
+    "coffee-script": "*",
+    "underscore": "*",
+    "irc": "*",
+    "async": "*",
+    "cheerio": "*",
+    "url": "~0.7.9",
+    "request": "~2.21.0",
+    "mongodb": "~1.3.9",
+    "moment": "~2.0.0",
+    "express": "~3.2.6",
+    "ejs": "*",
+    "twitter-api": "~1.0.2"
+  }
+}
