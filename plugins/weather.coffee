@@ -29,6 +29,7 @@ current_weather = (loc, cb)->
   get_weather loc, (err, w)->
     if err? then msg = 'Error fetching weather information.'
     msg = "#{w.current.cond}, " + irc.colors.wrap('bold', "#{w.current.c}°C | #{w.current.f}°F") + " in #{w.location}"
+    cb msg
 
 
 module.exports = (bot)->
