@@ -33,5 +33,5 @@ current_weather = (loc, cb)->
 
 module.exports = (bot)->
   bot.on 'cmd_temp', (nick, to, args)->
-    current_weater args, (msg)->
+    current_weather args, (msg)->
       bot.say to, msg
