@@ -5,7 +5,6 @@ var request = require("request");
   
 module.exports = function (bot) {
 	bot.on("message", function (nick, to, text) {
-		console.log("LEDDIT!");
 		var uris = text.match(uri_pattern);
 		
 		for (var k in uris) {
