@@ -1,8 +1,9 @@
 # urltitle - fetches page titles from URLs posted in channel
 
 # gruber revised expression - http://rodneyrehm.de/t/url-regex.html
-uri_pattern = /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/ig;
+uri_pattern = /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/ig
 twitter_pattern = /^https?:\/\/(www.)?twitter.com\/(.*)\/status\/(.*)$/i
+reddit_pattern = /^https?:\/\/(www.)?reddit.com\/r\/(.*?)\/comments\/(.*?)\/(.*)$/i
 cheerio = require 'cheerio'
 http = require 'http'
 https = require 'https'
@@ -38,6 +39,8 @@ module.exports = (bot)->
     uris = text.match(uri_pattern)
     for k, uri of uris
       if uri.match(twitter_pattern) and !bot.config.blacklist?.twitter then return # How hidous.
+      if uri.match(reddit_pattern) and !bot.config.blacklist?.reddit then return # How hidous.
+      console.log reddit_pattern
       get_uri uri, (res, data)->
         ct = res.headers['content-type']
         if ct.match /text\/html/
