@@ -8,19 +8,29 @@ get_weather = (loc, cb)->
   request
     uri: "http://google.com/search"
     qs:
-      q: "Weather+in+#{encodeURIComponent loc}"
+      q: "Weather+#{encodeURIComponent loc}"
       sourceid: "chrome"
     headers:
       'User-Agent': 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19'
   , (err, res, body)->
       if err? then console.log err; return
       $ = cheerio.load body
+
+      # Sometimes C and F get inverted. I don't know why.
+      c = parseInt $('#wob_ttm').text()
+      f = parseInt $('#wob_tm').text()
+      unless c < -40 or f < -40
+        if c > f
+          a = f
+          f = c
+          c = a
+
       w =
         location: $('.wob_hdr .vk_h').text()
         current:
           cond: $('#wob_dc').text()
-          c: $('#wob_ttm').text()
-          f: $('#wob_tm').text()
+          c: c
+          f: f
       unless w.location then err = true
       cb(err, w)
 
