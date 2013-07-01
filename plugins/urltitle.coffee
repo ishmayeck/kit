@@ -40,7 +40,6 @@ module.exports = (bot)->
     for k, uri of uris
       if uri.match(twitter_pattern) and !bot.config.blacklist?.twitter then return # How hidous.
       if uri.match(reddit_pattern) and !bot.config.blacklist?.reddit then return # How hidous.
-      console.log reddit_pattern
       get_uri uri, (res, data)->
         ct = res.headers['content-type']
         if ct.match /text\/html/
