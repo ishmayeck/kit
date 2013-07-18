@@ -33,10 +33,8 @@ module.exports = (bot)->
     bot.say to, gratefuls[Math.floor(Math.random()*gratefuls.length)];
   bot.on 'cmd_choose', (nick, to, text, message)->
     if text.indexOf(',') > -1
-      console.log 'comma'
       arr = text.split ','
     else if text[text.length-1] == '?'
-      console.log 'IT AMS'
       # simple question, delegate to 8ball.
       # Undefined behavior if 8ball plugin isn't loaded.
       bot.emit 'cmd_8ball', nick, to, text, message
