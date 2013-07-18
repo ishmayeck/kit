@@ -38,9 +38,12 @@ module.exports = class Bot extends irc.Client
       this.emit 'loaded' # require is sync, which makes things easy
 
   parseMessage: (nick, to, text, message)->
-    r = new RegExp "^#{@config.cmdprefix}(\\w+)"
-    if r = text.match r
-      this.emit "cmd_#{r[1]}", nick, to, text.match(/\w+\ ?(.*$)/)[1], message
+    cmds = @config.cmdprefix
+    console.log cmds
+    for cmd in cmds
+      r = new RegExp "^#{cmd}(\\w+)"
+      if r = text.match r
+        return this.emit "cmd_#{r[1]}", nick, to, text.match(/\w+\ ?(.*$)/)[1], message
 
   # We need to keep tabs on what listeners the plugins are using, so that we
   # can clear them when we're reloading plugins.
