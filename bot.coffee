@@ -1,6 +1,7 @@
 fs = require 'fs'
 path = require 'path'
 _ = require 'underscore'
+q = global.q = require 'q'
 
 module.exports = class Bot extends irc.Client
 
