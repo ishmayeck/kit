@@ -40,7 +40,6 @@ module.exports = class Bot extends irc.Client
 
   parseMessage: (nick, to, text, message)->
     cmds = @config.cmdprefix
-    console.log cmds
     for cmd in cmds
       r = new RegExp "^#{cmd}(\\w+)"
       if r = text.match r
