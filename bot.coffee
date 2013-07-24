@@ -32,6 +32,7 @@ module.exports = class Bot extends irc.Client
     console.log " - Loading plugins..."
     fs.readdir './plugins', (err, files)=>
       for file in files
+        continue unless path.extname file # Check that file is not a directory. TODO: make not hack
         name = path.basename file, path.extname file
         unless @config.blacklist? and name in @config.blacklist
           console.log '  - ' + name
