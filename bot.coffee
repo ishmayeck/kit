@@ -2,6 +2,7 @@ fs = require 'fs'
 path = require 'path'
 _ = require 'underscore'
 q = global.q = require 'q'
+domain = require 'domain'
 
 module.exports = class Bot extends irc.Client
 
@@ -44,7 +45,14 @@ module.exports = class Bot extends irc.Client
     for cmd in cmds
       r = new RegExp "^#{cmd}(\\w+)"
       if r = text.match r
-        return this.emit "cmd_#{r[1]}", nick, to, text.match(/\w+\ ?(.*$)/)[1], message
+        dom = domain.create()
+        dom.run =>
+          this.emit "cmd_#{r[1]}", nick, to, text.match(/\w+\ ?(.*$)/)[1], message
+        dom.on 'error', this.handleError
+
+  handleError: ->
+    console.log 'Fatal Error: '
+    console.log arguments
 
   # We need to keep tabs on what listeners the plugins are using, so that we
   # can clear them when we're reloading plugins.
