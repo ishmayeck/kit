@@ -14,6 +14,9 @@ getNowPlaying = (user, cb)->
   , (err, res, body)->
       t = JSON.parse body
       if t.error? then cb('Unspecified error.'); return
+      unless t.recenttracks? and t.recenttracks.track? and t.recenttracks.track.length?
+        cb(user + " doesn't appear to have played anything.")
+        return
       tr = t.recenttracks.track[0]
       if !tr? then return
       if tr['@attr']? and tr['@attr'].nowplaying
