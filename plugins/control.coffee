@@ -6,7 +6,7 @@ module.exports = (bot)->
       bot.reload()
 
   bot.on 'cmd_quit', (shit..., message)->
-    authorize(message).then ->
+    auth.authorize(message).then ->
       bot.disconnect 'I OBEY!'
 
   bot.on 'cmd_eval', (nick, to, text, message)->
