@@ -25,6 +25,12 @@ module.exports =
     userName: 'Bot'
     realName: "Look Ma I'm a bot"
 
+  # Whether to use NickServ identification, and the password
+  # You must register the nick yourself - too much variance between
+  # registration procedures on different servers to do it automatically.
+  identify: false
+  password: 'himitsu'
+
   # List of nicks that can use dangerous/administrative things.
   # These nicks must be identified to NickServ to administrate.
   owners: [
