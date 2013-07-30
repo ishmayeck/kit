@@ -40,6 +40,18 @@ module.exports = (bot)->
       # Undefined behavior if 8ball plugin isn't loaded.
       bot.emit 'cmd_8ball', nick, to, text, message
       return
+    else if (matches = text.match(/(\d+)\ ?\-\ ?(\d+)/))
+      one = parseInt matches[1]
+      two = parseInt matches[2]
+      if one < two
+        min = one; max = two
+      else
+        min = two; max = one
+      console.log 'min: ' + min
+      console.log 'max: ' + max
+      result = Math.floor Math.random() * (max - min) + min
+      bot.say to, nick + ': ' + result
+      return
     else
       arr = text.split ' '
     bot.say to, nick + ': ' + arr[Math.floor(Math.random()*arr.length)];
