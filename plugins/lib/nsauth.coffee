@@ -13,16 +13,18 @@
 
 auth = (nick)->
 	def = q.defer()
-	unless nick in bot.config.owners
+	unless bot.config.owners? and bot.config.owners.length
+		def.reject('No owners set in config file.')
+	else unless nick in bot.config.owners
 		def.reject('But you are not my master!')
+	else
+		bot.on 'notice', (from, to, text)->
+			if from == 'NickServ' and text == "STATUS #{nick} 3"
+				def.resolve()
+			else
+				def.reject('Try identifying to NickServ.')
 
-	bot.on 'notice', (from, to, text)->
-		if from == 'NickServ' and text == "STATUS #{nick} 3"
-			def.resolve()
-		else
-			def.reject('Try identifying to NickServ.')
-
-	bot.say 'NickServ', "STATUS #{nick}"
+		bot.say 'NickServ', "STATUS #{nick}"
 	return def.promise
 
 module.exports = (bot)->
