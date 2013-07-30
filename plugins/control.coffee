@@ -16,3 +16,13 @@ module.exports = (bot)->
       catch e
         bot.say to, e
         console.log e
+
+  bot.on 'cmd_update', (nick, to, text, message)->
+    auth.authorize(message).then ->
+      require('child_process').exec 'git pull', (e, out, err)->
+        if e?
+          console.log e
+          bot.say to, 'Internal error.'
+          return
+        bot.say to, out
+        bot.reload()
