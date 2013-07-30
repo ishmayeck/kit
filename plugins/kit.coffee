@@ -11,7 +11,8 @@ says_things = [
   "The foolish name of you is trivial.",
   "If the life is regrettable, not having approached me any longer.",
   "You can consider this as the best news on my life !! seriously !!",
-  "Best fuck up cunt or I hook ya in the gabber"
+  "Best fuck up cunt or I hook ya in the gabber",
+  "веселенькая группа, под неё я много народу напугал."
 ]
 gratefuls = [
   "I-it's not like I did it for you! baka!!",
