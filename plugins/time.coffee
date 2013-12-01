@@ -91,7 +91,7 @@ module.exports = (bot)->
         done()
     ], =>
       bot.say to, "#{beast_text()}" + ' \\\\ Normalfag time in relevant places of the world:'
-      bot.say to, irc.colors.wrap('bold', 'Mexico: ') + pc + ' || ' + irc.colors.wrap('bold', 'Japan: ') + jp
+      bot.say to, irc.colors.wrap('bold', 'Mexico: ') + pc + ' || ' + irc.colors.wrap('bold', 'Jordan: ') + jp
       bot.say to, irc.colors.wrap('bold', 'Svalbard: ') + sv + ' || ' + irc.colors.wrap('bold', 'Tanzania, NZ, Austria: ') + au
 
   bot.on 'cmd_beats', (nick, to, text)->
