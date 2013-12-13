@@ -31,7 +31,7 @@ get_uri = (u, cb)->
 
 get_title = (html, cb)->
   $ = cheerio.load html
-  if cb? then cb $('title').text().replace(/\s$/, '').replace(/\n/g, ' ')
+  if cb? then cb $('title').text().replace(/\s$/, '').replace(/(\n|\r)/g, ' ')
 
 
 module.exports = (bot)->
