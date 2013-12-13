@@ -18,7 +18,7 @@ get_uri = (u, cb)->
     uri: u
   , (err, res, body)->
       if err then console.log err; return
-      if !res.headers['content-type'].match /text\/html/
+      if res.headers['content-type'] and !res.headers['content-type'].match /text\/html/
         if cb? then cb(res, null)
       else
         # we good, let's get it
@@ -31,7 +31,7 @@ get_uri = (u, cb)->
 
 get_title = (html, cb)->
   $ = cheerio.load html
-  if cb? then cb $('title').text().replace /\s$/, ''
+  if cb? then cb $('title').text().replace(/\s$/, '').replace(/\n/g, ' ')
 
 
 module.exports = (bot)->
