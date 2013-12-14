@@ -1,6 +1,6 @@
 module.exports = function (bot) {
 	bot.on("message", function (nick, to, text) {
-		if (text.test(/h4/)) {
+		if (/h4/.test(text)) {
 			var count = text.match(/h4/).length, h8 = "";
 
 			for (var i = 0; i < count; i++) {
