@@ -1,5 +1,5 @@
-require('coffee-script');
-irc = require('irc')
+require('coffee-script/register');
+irc = require('irc');
 var fs = require('fs')
     , e = require('events')
     , async = require('async');

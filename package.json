@@ -9,18 +9,18 @@
   },
   "main": "./app.js",
   "dependencies": {
-    "coffee-script": "*",
-    "underscore": "*",
-    "irc": "*",
-    "async": "*",
-    "cheerio": "*",
+    "coffee-script": "~1.7.1",
+    "underscore": "~1.6.0",
+    "irc": "~0.3.6",
+    "async": "~0.2.10",
+    "cheerio": "~0.13.1",
     "url": "~0.7.9",
     "request": "~2.21.0",
     "mongodb": "~1.3.9",
     "moment": "~2.0.0",
     "express": "~3.2.6",
-    "ejs": "*",
+    "ejs": "~0.8.5",
     "twitter-api": "~1.0.2",
-    "q": "~0.9.6"
+    "q": "~0.9.7"
   }
 }
