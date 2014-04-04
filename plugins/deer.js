@@ -6,10 +6,10 @@ module.exports = function (bot) {
         var col2 = -1;
         var MAX_COLOUR = 15;
 
-        if (parameters.split(' ').length === 2)
+        if (text.split(' ').length === 2)
         {
-            col1 = Number(parameters.split(' ')[0]);
-            col2 = Number(parameters.split(' ')[1]);
+            col1 = Number(text.split(' ')[0]);
+            col2 = Number(text.split(' ')[1]);
         }
 
         if (col1 < 0 || col1 > MAX_COLOUR || isNaN(col1))
