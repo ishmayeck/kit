@@ -1,6 +1,6 @@
 fs = require 'fs'
 path = require 'path'
-_ = require 'underscore'
+_ = require 'lodash'
 q = global.q = require 'q'
 domain = require 'domain'
 

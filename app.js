@@ -3,7 +3,7 @@ irc = require('irc');
 var fs = require('fs')
     , e = require('events')
     , async = require('async');
-_ = require('underscore');
+_ = require('lodash');
 
 irc.colors.codes.bold = '\u0002';
 irc.colors.codes.underline = '\u001f';
