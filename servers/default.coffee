@@ -1,7 +1,7 @@
 module.exports =
-  enabled: true
-  nick: 'Kite'
-  server: 'irc.ishmayeck.net'
+  enabled: false
+  nick: 'Kit'
+  server: 'irc.somewhere.net'
 
   # Command delimiter.
   # Can also be an array if you want multiple command delimiters
@@ -16,7 +16,8 @@ module.exports =
   # I may make it a bit more friendly, someday.
   ircopts:
     channels: [
-      '#asdf'
+      '#channel1'
+      '#channel2'
     ]
     autoRejoin: true
     autoConnect: true
@@ -33,7 +34,7 @@ module.exports =
   # List of nicks that can use dangerous/administrative things.
   # These nicks must be identified to NickServ to administrate.
   owners: [
-    'Ishmayeck'
+    'Yournick'
   ]
 
   # List of plugins to never load for this server.
