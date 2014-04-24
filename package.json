@@ -21,6 +21,7 @@
     "q": "~0.9.7",
     "request": "~2.21.0",
     "twitter-api": "~1.0.2",
-    "url": "~0.7.9"
+    "url": "~0.7.9",
+    "ddate": "git+https://github.com/ishmayeck/node-ddate.git#master"
   }
 }
