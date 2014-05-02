@@ -51,8 +51,8 @@ function DoThing()
                     var diff = links.length - webm_list.length;
                     for(var x = webm_list.length; x < webm_list.length + diff; x++)
                     {
-                        //console.log('#test', 'http:' + webm_list[x])
-                        bot.say('#test', 'http:' + links[x]);
+                        // hardcode channel for now
+                        bot.say('#SecretBase', 'http:' + links[x]);
                     }
                     webm_list = links;
                 }
