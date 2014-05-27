@@ -1,15 +1,15 @@
 var baseStr = "\n%col1%########%col2%#%col1%##%col2%#%col1%#\n%col1%########%col2%#%col1%##%col2%#%col1%#\n%col1%#########%col2%##%col1%##\n%col1%########%col2%###%col1%##\n%col1%#########%col2%##%col1%##\n%col1%##%col2%#########%col1%##\n%col1%#%col2%##########%col1%##\n%col1%#%col2%##########%col1%##\n%col1%#%col2%#%col1%#%col2%#%col1%####%col2%#%col1%#%col2%#%col1%##\n%col1%#%col2%#%col1%#%col2%#%col1%####%col2%#%col1%#%col2%#%col1%##\n%col1%#%col2%#%col1%#%col2%#%col1%####%col2%#%col1%#%col2%#%col1%##";
 
-module.exports = function (bot) {
-    bot.on("cmd_deer", function (nick, to, text) {
+module.exports = function (app) {
+    app.cmd('deer', function(req, res) {
         var col1 = -1;
         var col2 = -1;
         var MAX_COLOUR = 15;
 
-        if (text.split(' ').length === 2)
+        if (req.text.split(' ').length === 2)
         {
-            col1 = Number(text.split(' ')[0]);
-            col2 = Number(text.split(' ')[1]);
+            col1 = Number(req.text.split(' ')[0]);
+            col2 = Number(req.text.split(' ')[1]);
         }
 
         if (col1 < 0 || col1 > MAX_COLOUR || isNaN(col1))
@@ -25,7 +25,7 @@ module.exports = function (bot) {
                 col2 = Math.floor(Math.random()*MAX_COLOUR);
             }
         }
-            
-        bot.say(to, baseStr.replace(/%col1%/g, col1 + "," + col1).replace(/%col2%/g, col2 + "," + col2));
+
+        res.say(baseStr.replace(/%col1%/g, col1 + "," + col1).replace(/%col2%/g, col2 + "," + col2));
     });
 };

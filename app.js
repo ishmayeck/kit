@@ -1,33 +1,21 @@
-require('coffee-script/register');
-irc = require('irc');
-var fs = require('fs')
-    , e = require('events')
-    , async = require('async');
-_ = require('lodash');
+var irc = require('irc')
+    , fs = require('fs')
+    , _ = require('lodash')
+    , zygoat = require('../zygoat');
 
 irc.colors.codes.bold = '\u0002';
 irc.colors.codes.underline = '\u001f';
 
+var app = zygoat();
 
-var Bot = require('./bot');
+var client = new irc.Client('irc.ishmayeck.net', 'Kote', {
+    channels: [ '#teste' ]
+});
 
-does = [];
-nets = [];
-fs.readdir('./servers', function(err, files){
+fs.readdir('./plugins', function(err, files){
     _.each(files, function(file){
-        does.push(function(done) {
-            var b = new Bot(file).on('loaded', function() {
-                done();
-            });
-            if(!b.config.enabled) {
-                done()
-            } else {
-                nets.push(b);
-            }
-        });
-    });
-    async.series(does, function() {
-        console.log("- All done");
-        require('./webui');
+        require('./plugins/' + file)(app);
     });
 });
+
+app.run(client);

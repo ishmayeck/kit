@@ -1,7 +1,7 @@
 var DDate = require('ddate');
 
-module.exports = function(bot) {
-    bot.on('cmd_ddate', function(nick, to) {
-        bot.say(to, 'Today is ' + new DDate().toOldImmediateDateFormat());
+module.exports = function(app) {
+    app.cmd('ddate', function(req, res) {
+        res.say('Today is ' + new DDate().toOldImmediateDateFormat());
     });
 };
