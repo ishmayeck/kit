@@ -1,109 +1,85 @@
-var request = require("request");
+var Promise = require('bluebird');
+var _ = require('lodash');
+var request = Promise.promisifyAll(require("request"));
+var LRU = require('lru-cache');
+var webms = LRU(100);
 
-var remove_derp = function (arr) {
-    var i, j, cur, found;
-    for (i = arr.length - 1; i >= 0; i--) {
-        cur = arr[i];
-        found = false;
-        for (j = i - 1; !found && j >= 0; j--) {
-            if (cur === arr[j]) {
-                if (i !== j) {
-                    arr.splice(i, 1);
-                }
-                found = true;
-            }
-        }
-    }
-    return arr;
-};
-
-var url = "";
-var webm_list;
 var bot;
 
-function DoThing()
-{
-    request({
-            method: "GET",
-            uri: url,
-        },
-        function (error, response, body) {
-            if(!error && response.statusCode == 404)
-            {
-                console.log("404");
-
-                DoOtherThing();
-            }
-            else if(!error)
-            {
-                var html = body;
-                var pattern = /\/\/i.4cdn.org\/jp\/\d*.webm/g;
-                var links = html.match(pattern);
-                if (links && links.length > 0) {
-                    remove_derp(links);
-
-                    if(!webm_list)
-                    {
-                        //console.log("webm_list was empty, setting to links");
-                        webm_list = links.slice(0, -1); // show the last one on startup for funzies
-                    }
-
-                    var diff = links.length - webm_list.length;
-                    for(var x = webm_list.length; x < webm_list.length + diff; x++)
-                    {
-                        // hardcode channel for now
-                        bot.say('#SecretBase', 'http:' + links[x]);
-                    }
-                    webm_list = links;
-                }
-            }
-            else
-            {
-                console.log(error);
-            }
-    });
-}
-
-function DoOtherThing() {
-    request({
-        method: "GET",
-        url: "https://a.4cdn.org/jp/catalog.json",
+function getThreads () {
+    return request.getAsync({
+        url: 'http://a.4cdn.org/jp/catalog.json',
         headers: {
             'User-Agent': 'request'
-        }
-    },
-    function (error, response, body) {
-        if(!error)
-        {
-            var base = JSON.parse(body);
-
-            for(var i = 0; i < 11; i++)
-            {
-                if (base[i]) {
-                    var threads = base[i]["threads"];
-                    for(var j = 0; j < threads.length; j++)
-                    {
-                        thread = threads[j];
-                        if(thread["sub"])
-                        {
-                            var patt = /akb.*general/ig;
-
-                            if(patt.test(thread["sub"]))
-                            {
-                                url = "http://boards.4chan.org/jp/res/" + thread["no"];
-                                console.log(url);
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        },
+        json: true
+    })
+    .spread(function (response, data) {
+        return _(data)
+        .map(function (page, index) {
+            return page.threads;
+        })
+        .flatten()
+        .filter(function (thread) {
+            return /akb.*general/i.test(thread.sub);
+        })
+        .pluck('no')
+        .value();
     });
 }
 
-DoOtherThing();
+function getWebMs (thread) {
+    console.log('http://a.4cdn.org/jp/thread/' + thread + '.json');
+    return request.getAsync({
+        url: 'http://a.4cdn.org/jp/thread/' + thread + '.json',
+        headers: {
+            'User-Agent': 'request'
+        },
+        json: true
+    })
+    .spread(function (response, data) {
+        return _(data.posts)
+        .filter(function (post) {
+            if (post.ext === '.webm' && !webms.get(post.md5)) {
+                webms.set(post.md5, post);
 
-setInterval(DoThing, 10000);
+                return true;
+            }
+
+            return false;
+        })
+        .value();
+    });
+}
+
+function run () {
+    getThreads()
+    .map(getWebMs)
+    .then(function (webmlist) {
+        return _(webmlist)
+        .flatten()
+        .sortBy('no')
+        .value();
+    })
+    .then(function (webmlist) {
+        if (isFirstRun) {
+            isFirstRun = false;
+
+            return [webmlist.pop()];
+        }
+
+        return webmlist;
+    })
+    .map(function (post) {
+        bot.say('#SecretBase', '[WebM] http://i.4cdn.org/jp/' + post.tim + post.ext + ' - ' + post.filename);
+    })
+    .delay(60000)
+    .then(run, run);
+}
+
+isFirstRun = true;
+
+run();
 
 module.exports = function (b) {
     bot = b;
