@@ -29,7 +29,6 @@ function getThreads () {
 }
 
 function getWebMs (thread) {
-    console.log('http://a.4cdn.org/jp/thread/' + thread + '.json');
     return request.getAsync({
         url: 'http://a.4cdn.org/jp/thread/' + thread + '.json',
         headers: {
@@ -62,13 +61,11 @@ function run () {
         .value();
     })
     .then(function (webmlist) {
-        if (isFirstRun) {
-            isFirstRun = false;
+        if (!isFirstRun) return webmlist;
 
-            return [webmlist.pop()];
-        }
+        isFirstRun = false;
 
-        return webmlist;
+        return [webmlist.pop()];
     })
     .map(function (post) {
         bot.say('#SecretBase', '[WebM] http://i.4cdn.org/jp/' + post.tim + post.ext + ' - ' + post.filename);
