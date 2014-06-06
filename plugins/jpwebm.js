@@ -76,7 +76,7 @@ function run () {
 
 isFirstRun = true;
 
-run();
+setTimeout(run, 10000);
 
 module.exports = function (b) {
     bot = b;
