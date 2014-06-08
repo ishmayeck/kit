@@ -52,7 +52,7 @@ function getWebMs (thread) {
 }
 
 function run () {
-    getThreads()
+    return getThreads()
     .map(getWebMs)
     .then(function (webmlist) {
         return _(webmlist)
@@ -71,7 +71,12 @@ function run () {
         bot.say('#SecretBase', '[WebM] http://i.4cdn.org/jp/' + post.tim + post.ext + ' - ' + post.filename);
     })
     .delay(60000)
-    .then(run, run);
+    .catch(function (error) {
+        console.error('[jpwebm]', error.stack);
+
+        return error;
+    })
+    .then(run);
 }
 
 isFirstRun = true;
