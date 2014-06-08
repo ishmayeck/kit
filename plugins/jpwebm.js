@@ -85,4 +85,37 @@ setTimeout(run, 10000);
 
 module.exports = function (b) {
     bot = b;
+
+    var fn = function (nick, to, text) {
+        return request.getAsync({
+            url: 'http://a.4cdn.org/jp/catalog.json',
+            headers: {
+                'User-Agent': 'request'
+            },
+            json: true
+        })
+        .spread(function (response, data) {
+            return _(data)
+            .map(function (page, index) {
+                return page.threads;
+            })
+            .flatten()
+            .filter(function (thread) {
+                return /akb.*general/i.test(thread.sub);
+            })
+            .sortBy('no')
+            .value()
+            .pop();
+        })
+        .then(function (thread) {
+            bot.say(to, '[AKB General] http://boards.4chan.org/jp/thread/' + thread.no + '/' + thread.semantic_url + ' - ' + thread.sub);
+        });
+    };
+
+    bot.on('cmd_akb', fn);
+    bot.on('cmd_akb48', fn);
+    bot.on('cmd_akbgen', fn);
+    bot.on('cmd_akb48gen', fn);
+    bot.on('cmd_akbgeneral', fn);
+    bot.on('cmd_akb48general', fn);
 };
