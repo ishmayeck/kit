@@ -10,4 +10,8 @@ module.exports = function (bot) {
     bot.on('cmd_da', function (nick, to, text) { 
         bot.say(to, 'http://a.pomf.se/pvegjf.webm');
     });
+
+    bot.on('cmd_brthday', function (nick, to, text) { 
+        bot.say(to, 'http://a.pomf.se/vgwjin.mp4');
+    });
 };
