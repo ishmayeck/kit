@@ -21,7 +21,7 @@ function getThreads () {
         })
         .flatten()
         .filter(function (thread) {
-            return /akb.*general/i.test(thread.sub);
+            return thread && /akb.*general/i.test(thread.sub);
         })
         .pluck('no')
         .value();
@@ -101,7 +101,7 @@ module.exports = function (b) {
             })
             .flatten()
             .filter(function (thread) {
-                return /akb.*general/i.test(thread.sub);
+                return thread && /akb.*general/i.test(thread.sub);
             })
             .sortBy('no')
             .value()
