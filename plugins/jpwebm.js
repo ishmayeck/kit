@@ -61,7 +61,7 @@ function run () {
         .value();
     })
     .then(function (webmlist) {
-        if (!isFirstRun) return webmlist;
+        if (!isFirstRun || webmlist.length === 0) return webmlist;
 
         isFirstRun = false;
 
@@ -72,7 +72,7 @@ function run () {
     })
     .delay(60000)
     .catch(function (error) {
-        console.error('[jpwebm]', error.stack);
+        console.error('[jpwebm]\n', error.stack);
 
         return error;
     })
