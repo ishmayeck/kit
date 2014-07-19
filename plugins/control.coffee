@@ -10,6 +10,7 @@ module.exports = (bot)->
       bot.disconnect 'I OBEY!'
 
   bot.on 'cmd_eval', (nick, to, text, message)->
+    say = _.partial bot.say, to
     auth.authorize(message).then ->
       try
         bot.say to, eval(text)
