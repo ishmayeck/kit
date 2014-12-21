@@ -19,7 +19,6 @@ auth = (nick)->
 		def.reject('But you are not my master!')
 	else
 		bot.on 'notice', (from, to, text)->
-			console.log(from, to, text)
 			if from == 'NickServ' and text == "STATUS #{nick} 3" or text == "STATUS #{nick} 3 #{nick}"
 				def.resolve()
 			else
