@@ -72,9 +72,9 @@ module.exports = (bot)->
       bot.say to, time_text(time)
 
   bot.on 'cmd_times', (nick, to, text)->
-    pc = sv = au = jp = 0
+    pc = sv = au = jp = va = ia = 0
     async.parallel [
-      (done)-> gettime 'Ponca City', (time)->
+      (done)-> gettime '74074', (time)->
         pc = time_text_short(time)
         done()
     ,
@@ -89,10 +89,18 @@ module.exports = (bot)->
       (done)-> gettime 'Hobart', (time)->
         au = time_text_short(time)
         done()
+    ,
+      (done)-> gettime '22401', (time)->
+        va = time_text_short(time)
+        done()
+    ,
+      (done)-> gettime 'Jogjakarta', (time)->
+        ia = time_text_short(time)
+        done()
     ], =>
-      bot.say to, "#{beast_text()}" + ' \\\\ Normalfag time in relevant places of the world:'
-      bot.say to, irc.colors.wrap('bold', 'Mexico: ') + pc + ' || ' + irc.colors.wrap('bold', 'Jordan: ') + jp
-      bot.say to, irc.colors.wrap('bold', 'Svalbard: ') + sv + ' || ' + irc.colors.wrap('bold', 'Tanzania, NZ, Austria: ') + au
+      bot.say to, 'time in relevant places of the world of it:'
+      bot.say to, irc.colors.wrap('bold', 'Mexico: ') + pc + ' || ' + irc.colors.wrap('bold', 'Tanzania, NZ, Austria: ') + au
+      bot.say to, irc.colors.wrap('bold', 'Vagina: ') + va + ' || ' + irc.colors.wrap('bold', 'JKT48, India: ') + ia
 
   bot.on 'cmd_beats', (nick, to, text)->
     bot.say to, beast_text()
