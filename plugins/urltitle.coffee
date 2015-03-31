@@ -45,7 +45,7 @@ module.exports = (bot)->
         ct = res.headers['content-type']
         if ct.match /text\/html/
           get_title data, (title)->
-            bot.say to, "#{irc.colors.wrap('bold', title)} - #{uri}"
+            bot.say to, "#{irc.colors.wrap('bold', title)}"
         else
           #bot.say to, 'is an image or something!'
   bot.on 'cmd_wall', (nick, to, text)-> # TODO: not here
