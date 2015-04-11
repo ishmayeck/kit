@@ -3,8 +3,6 @@ import path from 'path';
 import domain from 'domain';
 import _ from 'lodash';
 
-Promise.promisifyAll(fs);
-
 export default class Bot extends irc.Client {
 
     // connection logic only pls

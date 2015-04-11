@@ -3,8 +3,6 @@ import _ from 'lodash';
 import Bot from './bot';
 import globalConfig from './config';
 
-Promise.promisifyAll(fs);
-
 irc.colors.codes.bold = '\u0002';
 irc.colors.codes.underline = '\u001f';
 
