@@ -75,6 +75,9 @@ function getAllTimes(nick, to, text) {
                 .then(parseTimeShort)
                 .then((time) => {
                     return irc.colors.wrap('bold', `${name}: `) + time;
+                })
+                .catch((err) => {
+                    return err.toString();
                 });
         })
         .then((times) => {
