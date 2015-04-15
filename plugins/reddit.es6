@@ -28,7 +28,8 @@ export default function (bot) {
                             return `${subredditTitle} ${info.url}`;
                         }
                     })
-                    .then((msg) => bot.say(to, msg));
+                    .then((msg) => bot.say(to, msg))
+                    .catch(_.noop);
             });
     });
 };
