@@ -29,7 +29,7 @@ export default function (bot) {
                         }
                     })
                     .then((msg) => bot.say(to, msg))
-                    .catch(_.noop);
+                    .catch(function ignoreError() {});
             });
     });
 };
