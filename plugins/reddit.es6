@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import request from 'request';
 
 Promise.promisifyAll(request);
