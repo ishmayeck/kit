@@ -20,9 +20,12 @@ export default function (bot) {
                         const subredditTitle = irc.colors.wrap('bold', `/r/${info.subreddit} : ${info.title}`);
                         
                         if (info.domain === 'self.' + info.subreddit) {
-                            const preview = info.selftext.replace(/\n/g, "\u00A0").substr(0, 126);
+                            const preview = _.trunc(info.selftext.replace(/\n/g, "\u00A0"), {
+                                length: 200,
+                                separator: /,? +/
+                            });
 
-                            return `${subredditTitle} ${preview}` + (preview.length > 125 ? '...' : '');
+                            return `${subredditTitle} ${preview}`;
                         }
                         else {
                             return `${subredditTitle} ${info.url}`;
